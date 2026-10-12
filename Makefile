@@ -7,10 +7,13 @@ TARGET := bin/venu
 
 SOURCES := \
 	src/main.c \
+	src/arena.c \
 	src/lexer.c \
-	src/parser.c
+	src/parser.c \
+	src/runtime.c \
+	platform/host/platform.c
 
-OBJECTS := $(SOURCES:src/%.c=obj/%.o)
+OBJECTS := $(patsubst %.c,obj/%.o,$(SOURCES))
 
 .PHONY: all clean run
 
@@ -20,7 +23,7 @@ $(TARGET): $(OBJECTS)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $@
 
-obj/%.o: src/%.c
+obj/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 

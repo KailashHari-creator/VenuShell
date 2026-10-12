@@ -34,6 +34,24 @@ struct venu_platform {
     uint64_t (*process_id)(
         void *context
     );
+
+    int64_t (*execute)(
+        void *context,
+        const char *program,
+        const char *const arguments[]
+    );
+
+    int64_t (*get_working_directory)(
+        void *context,
+        char *buffer,
+        size_t capacity
+    );
+
+    int64_t (*change_working_directory)(
+        void *context,
+        const char *path
+    );
+
 };
 
 /*
