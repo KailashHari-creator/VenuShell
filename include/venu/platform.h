@@ -5,6 +5,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "venu/allocator.h"
+
 /*
  * Every environment capable of running VENU supplies these operations.
  *
@@ -13,6 +15,8 @@
  */
 struct venu_platform {
     void *context;
+
+    struct venu_allocator allocator;
 
     int64_t (*write)(
         void *context,

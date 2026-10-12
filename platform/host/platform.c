@@ -11,8 +11,29 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <stdlib.h>
 
 #include "venu/platform.h"
+
+static void *host_allocate(
+    void *context,
+    size_t size
+)
+{
+    (void)context;
+
+    return malloc(size);
+}
+
+static void host_deallocate(
+    void *context,
+    void *memory
+)
+{
+    (void)context;
+
+    free(memory);
+}
 
 static int64_t host_write(
     void *context,
@@ -221,6 +242,9 @@ bool venu_host_platform_initialize(
     }
 
     platform->context = NULL;
+    platform->allocator.context = NULL;
+    platform->allocator.allocate = host_allocate;
+    platform->allocator.deallocate = host_deallocate;
     platform->write = host_write;
     platform->read_line = host_read_line;
     platform->sleep_ms = host_sleep_ms;

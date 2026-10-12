@@ -601,14 +601,19 @@ ast_make_string_literal(
         return NULL;
     }
 
-    expression->as.literal.type =
-        VENU_VALUE_STRING;
+    if (!venu_value_initialize_borrowed_string(
+            &expression->as.literal,
+            data,
+            length
+        )) {
+        ast_set_error(
+            parser,
+            token,
+            "failed to create string literal"
+        );
 
-    expression->as.literal.as.string.data =
-        data;
-
-    expression->as.literal.as.string.length =
-        length;
+        return NULL;
+    }
 
     return expression;
 }
