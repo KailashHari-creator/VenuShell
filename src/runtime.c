@@ -592,18 +592,4 @@ int venu_runtime_execute(
         (int)execution_status;
 
     return runtime->last_status;
-
-    runtime_write_text(
-        runtime,
-        command->name
-    );
-
-    runtime_write_text(
-        runtime,
-        "\n"
-    );
-
-    runtime->last_status = 127;
-
-    return 127;
 }
