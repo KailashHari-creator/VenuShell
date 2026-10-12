@@ -1,6 +1,8 @@
 #ifndef VENU_TOKEN_H
 #define VENU_TOKEN_H
 
+#include <stddef.h>
+
 enum venu_token_type 
 {
     VENU_TOKEN_WORD,
